@@ -7,6 +7,9 @@ $(document).ready(() => {
     // Store original text
     const $originalText = $textEl.text().trim() + ' ';
 
+    // let IsVisible = () => {
+    // };
+
     let MesureHeights = () => {
         // Reset
         $textEl.text($originalText);
@@ -48,13 +51,17 @@ $(document).ready(() => {
     };
 
     // On load
+    // if (!IsVisible()) {
     MesureHeights();
     Toggle();
+    // }
 
     // On resize
     $(window).resize(() => {
+        // if (!IsVisible()) {
         MesureHeights();
         Toggle();
+        // }
     });
 
     // On click

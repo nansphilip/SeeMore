@@ -14,7 +14,7 @@
     text-align: justify;
     overflow: hidden;
     line-height: 20px;
-    transition: 300ms;
+    transition: 200ms;
 }
 
 .minimized>.text {
