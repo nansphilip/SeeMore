@@ -9,13 +9,14 @@
     <link rel="stylesheet" href="/css/imports.css">
     <link rel="stylesheet" href="/css/class.css">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/flex.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
     <main>
         <p>Hello 👋 Try resizing your <strong>screen width</strong> and test whether the paragraph minimizes or not!</p>
-        <div class="paragraph minimized">
+        <section class="paragraph minimized">
             <div class="text">
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam magnam neque iste voluptatibus, itaque
                 nostrum ratione laborum eos aut exercitationem voluptatum cum molestias. Ratione et odio assumenda amet
@@ -25,6 +26,28 @@
             </div>
             <div class="button see-more">Voir plus</div>
             <div class="button see-less">Voir moins</div>
+        </section>
+        <div class="grid">
+            <section class="paragraph minimized">
+                <div class="text">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam magnam neque iste voluptatibus, itaque
+                    nostrum ratione laborum eos aut exercitationem voluptatum cum molestias. Ratione et odio assumenda amet
+                    aspernatur quasi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius reprehenderit quas,
+                    temporibus dignissimos cumque consequatur quae itaque vero cum, minus laudantium neque beatae soluta
+                    quidem, necessitatibus laboriosam sapiente sint perferendis.
+                </div>
+                <div class="button see-more">Voir plus</div>
+                <div class="button see-less">Voir moins</div>
+            </section>
+            <section class="paragraph minimized">
+                <div class="text">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam magnam neque iste voluptatibus, itaque
+                    nostrum ratione laborum eos aut exercitationem voluptatum cum molestias. Ratione et odio assumenda amet
+                    aspernatur quasi.
+                </div>
+                <div class="button see-more">Voir plus</div>
+                <div class="button see-less">Voir moins</div>
+            </section>
         </div>
     </main>
     <script type="module" src="/js/script.js"></script>

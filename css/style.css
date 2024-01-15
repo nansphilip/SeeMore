@@ -17,8 +17,12 @@
     --gray5: hwb(0 10% 90%);
 }
 
+body {
+    height: 100%;
+}
+
 main {
-    width: 100%;
+    padding: 0.5rem;
 }
 
 p {
