@@ -9,12 +9,10 @@
     background-color: hsl(0, 0%, 95%);
     border-radius: 0.5rem;
 
-    transition: 300ms;
-}
-
-.fusion > .info {
-    line-height: 20px;
     text-align: justify;
+    line-height: 20px;
+
+    transition: 300ms;
 }
 
 .fusion > .toggle {

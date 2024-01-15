@@ -28,13 +28,13 @@ $(document).ready(() => {
 
     let Toggle = () => {
         if ($paragraphEl.hasClass('min')) {
-            $textEl.text($cutText);
             $paragraphEl.css('height', $paragraphMinHeight);
+            $textEl.text($cutText);
             $toggleEl.text('Voir plus');
         }
         else {
-            $textEl.text($originalText);
             $paragraphEl.css('height', $paragraphMaxHeight);
+            $textEl.text($originalText);
             $toggleEl.text('Voir moins');
         }
     };
