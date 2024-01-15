@@ -23,6 +23,7 @@
 /* Button */
 .paragraph>.button {
     padding-top: 0.5rem;
+    line-height: 20px;
     text-align: center;
     cursor: pointer;
 }
