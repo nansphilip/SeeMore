@@ -1,0 +1,64 @@
+.paragraph {
+    margin: 1rem;
+    padding: 1rem;
+    
+    background-color: hsl(0, 0%, 95%);
+    border-radius: 0.5rem;
+}
+
+/* Text */
+.paragraph>.text {
+    text-align: justify;
+    overflow: hidden;
+    line-height: 20px;
+    transition: 300ms;
+}
+
+.minimized>.text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}
+
+/* Button */
+.paragraph>.button {
+    padding-top: 0.5rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* Button : see more */
+.paragraph>.see-more {
+    display: none;
+    font-weight: 500;
+    color: hwb(0 70% 30%);
+}
+
+.paragraph>.see-more:hover {
+    color: hwb(0 40% 60%);
+}
+
+.minimized>.see-more {
+    display: block;
+}
+
+/* Button : see less */
+.paragraph>.see-less {
+    display: block;
+    font-weight: 500;
+    color: hwb(0 70% 30%);
+}
+
+.paragraph>.see-less:hover {
+    color: hwb(0 40% 60%);
+}
+
+.minimized>.see-less {
+    display: none;
+}
+
+/* Visible */
+.visible>.see-more,
+.visible>.see-less {
+    display: none;
+}

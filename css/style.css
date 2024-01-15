@@ -1,0 +1,22 @@
+/* GLOBAL */
+* {
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+    /* overflow: hidden; */
+
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: black;
+
+    --gray1: hwb(0 90% 10%);
+    --gray2: hwb(0 70% 30%);
+    --gray3: hwb(0 50% 50%);
+    --gray4: hwb(0 30% 70%);
+    --gray5: hwb(0 10% 90%);
+}
+
+main {
+    width: 100%;
+}
