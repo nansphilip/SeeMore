@@ -19,9 +19,7 @@ let IsVisible = () => {
     // Mesure number of lines
     let $paragraphHeight = $textEl.height();
     let $lineHeight = parseInt($textEl.css('line-height'));
-
     let $numberOfLines = $paragraphHeight / $lineHeight;
-    console.log($numberOfLines);
 
     // Set class
     if ($numberOfLines <= 3) {
@@ -68,15 +66,11 @@ $(document).ready(() => {
     }
 
     // On resize
-    let timeout;
     $(window).resize(() => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-            if (!IsVisible()) {
-                MesureHeights();
-                ToggleParagraph();
-            }
-        }, 20);
+        if (!IsVisible()) {
+            MesureHeights();
+            ToggleParagraph();
+        }
     });
 
     // On click
