@@ -8,13 +8,21 @@ $(document).ready(() => {
     const $originalText = $textEl.text().trim() + ' ';
 
     let MesureHeights = () => {
+        // Reset
+        $textEl.text($originalText);
+        $paragraphEl.css('height', '');
+        $toggleEl.text('Voir plus');
+
         // Count number of lines
         let $textHeight = $textEl.height();
         let $lineHeight = parseInt($textEl.css('line-height'));
         let $numberOfLines = Math.round($textHeight / $lineHeight);
         
+        // Calculer les hauteurs minimale et maximale
         $paragraphMinHeight = ($lineHeight * 3 + 32) + 'px';
         $paragraphMaxHeight = ($textHeight + 32) + 'px';
+
+        console.log("Hauteur du texte:", $textHeight, '\n', "Nombre de lignes:", $numberOfLines, '\n', "Min:", $paragraphMinHeight, '\n', "Max:", $paragraphMaxHeight);
 
         // Count words
         let $splitParagraph = $originalText.split(' ');
@@ -22,7 +30,7 @@ $(document).ready(() => {
         let $wordsPerLine = Math.floor($wordsNumber / $numberOfLines);
 
         // Store cut text
-        let $limitNumberOfWords = Math.round($wordsPerLine * 2.7);
+        let $limitNumberOfWords = Math.round($wordsPerLine * 2.4);
         $cutText = $splitParagraph.slice(0, $limitNumberOfWords).join(' ').trim() + '... ';
     };
 
