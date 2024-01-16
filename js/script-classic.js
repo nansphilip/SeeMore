@@ -5,10 +5,14 @@ $(document).ready(() => {
         const buttonEl = paragraphEl.find('button');
 
         let currentClass = undefined;
+        let currentHeight = undefined;
         minHeight = undefined;
         maxHeight = undefined;
 
         const resets = () => {
+            // Stores current height
+            currentHeight = textEl.height();
+
             // Resets height
             textEl.css('height', '');
 
@@ -22,6 +26,9 @@ $(document).ready(() => {
         };
 
         const restores = () => {
+            // Restores height
+            textEl.css('height', currentHeight);
+
             // Restores class if it existed
             if (currentClass) {
                 paragraphEl.addClass('minimized');
@@ -29,24 +36,33 @@ $(document).ready(() => {
         };
 
         const displayButton = () => {
+            resets();
+
             // Counts number of lines
             let textHeight = textEl.height();
             let lineHeight = parseInt(textEl.css('line-height'));
             let numberOfLines = textHeight / lineHeight;
 
-            return numberOfLines > 3 ? true : false;
+            // Displays button if the text is greater than 3 lines
+            if (numberOfLines > 3) {
+                buttonEl.show();
+            } else {
+                buttonEl.hide();
+            }
+
+            restores();
         };
 
         const getHeight = () => {
-            let textHeight = textEl.height();
-            let lineHeight = parseInt(textEl.css('line-height'));
+            resets();
 
             // Calculates min and max height
+            let textHeight = textEl.height();
+            let lineHeight = parseInt(textEl.css('line-height'));
             minHeight = lineHeight * 3;
             maxHeight = textHeight;
 
-            console.log('Min :', minHeight);
-            console.log('Max :', maxHeight);
+            restores();
         };
 
         const setHeight = () => {
@@ -57,6 +73,7 @@ $(document).ready(() => {
             }
         };
 
+        // Sets button name
         const setButtonName = () => {
             if (paragraphEl.hasClass('minimized')) {
                 buttonEl.text('Voir plus');
@@ -67,33 +84,27 @@ $(document).ready(() => {
 
 
         // On load
-        resets();
         getHeight();
-        restores();
         setHeight();
         setButtonName();
-        if (displayButton()) {
-            buttonEl.show();
-        } else {
-            buttonEl.hide();
-        }
+        displayButton();
 
         // On resize
+        let timeout;
         $(window).on('resize', () => {
-            resets();
-            getHeight();
-            restores();
-            setHeight();
-            setButtonName();
-            if (displayButton()) {
-                buttonEl.show();
-            } else {
-                buttonEl.hide();
-            }
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                console.log('Resize');
+                getHeight();
+                setHeight();
+                setButtonName();
+                displayButton();
+            }, 100);
         });
 
         // On click
         buttonEl.on('click', () => {
+            // Toggles class
             paragraphEl.toggleClass('minimized');
 
             setHeight();
