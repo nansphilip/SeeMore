@@ -72,26 +72,26 @@ $(document).ready(() => {
         // On load
         if (displayButton()) {
             // Show button
-            buttonEl.show();
+            paragraphEl.removeClass('hide');
 
             // Sets height
             setHeight(getMinMax());
         } else {
             // Hide button
-            buttonEl.hide();
+            paragraphEl.addClass('hide');
         }
 
         // On resize
         $(window).on('resize', () => {
             if (displayButton()) {
                 // Show button
-                buttonEl.show();
+                paragraphEl.removeClass('hide');
 
                 // Sets height
                 setHeight(getMinMax());
             } else {
                 // Hide button
-                buttonEl.hide();
+                paragraphEl.addClass('hide');
             }
         });
 

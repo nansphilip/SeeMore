@@ -1,6 +1,6 @@
 /* Section */
 .paragraph {
-    height: fit-content;
+    /* height: fit-content; */
     
     margin: 0.5rem;
     padding: 1rem;
@@ -37,4 +37,8 @@
 
 .paragraph>button:hover {
     color: hwb(0 40% 60%);
+}
+
+.hide > button {
+    display: none;
 }
