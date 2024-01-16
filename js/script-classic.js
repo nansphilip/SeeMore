@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    $('.paragraph').each(function () {
+    $('.test-1').each(function () {
         const paragraphEl = $(this);
         const textEl = paragraphEl.find('p');
         const buttonEl = paragraphEl.find('button');

@@ -1,23 +1,158 @@
+/* ###### */
 /* GLOBAL */
+/* ###### */
+
 * {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
     margin: 0;
     padding: 0;
+}
 
-    box-sizing: border-box;
-    
+body {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     color: black;
 }
 
-html, body {
-    height: 100%;
-}
-
 main {
-    padding: 0.5rem;
+    height: 100%;
+    padding: 2rem;
 }
 
-main > p {
-    margin: 1rem;
+/* ########## */
+/* COMPONENTS */
+/* ########## */
+
+section {
+    background-color: hsl(0, 0%, 95%);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+button {
+    /* Sizing */
+    padding: 0.5rem;
+
+    /* Appearance */
+    background-color: hwb(0 83% 17%);
+    color: hwb(0 37% 63%);
+    border: none;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 0.5rem;
+
+    /* Behavior */
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: hwb(0 73% 27%);
+    color: hwb(0 29% 71%);
+}
+
+/* ######### */
+/* UTILITIES */
+/* ######### */
+
+abbr {
+    color: rgb(214, 139, 0);
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    cursor: help;
+}
+
+/* ###### */
+/* TEST 1 */
+/* ###### */
+
+.test-1 > p {
+    overflow: hidden;
+    text-align: justify;
+    line-height: 20px;
+    transition: 200ms;
+    margin-top: 0;
+}
+
+.minimized > p {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}
+
+.test-1 > button {
+    padding-top: 0.5rem;
+}
+
+/* ###### */
+/* TEST 2 */
+/* ###### */
+
+.test-2 {
+    height: fit-content;
+    overflow: hidden;
+    line-height: 20px;
+    transition: 200ms;
+}
+
+.test-2 > p,
+.test-2 > button {
+    display: inline;
+}
+
+/* ###### */
+/* TEST 3 */
+/* ###### */
+
+.test-3 > p {
+    /* Appearance */
+    text-align: justify;
+    margin-top: 0;
+
+    /* Allows the text ellipsis */
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    /* Allows the ellipsis after multiple lines, if `-webkit-line-clamp` is provided */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+
+    /* Animation */
+    transition: 0.5s;
+}
+
+.test-3.minimized > p {
+    /* Allows the ellipsis after multiple 3 lines */
+    -webkit-line-clamp: 3;
+}
+
+/* ######## */
+/* TEST 3-1 */
+/* ######## */
+
+.test-3-1 {
+    /* Children positioning */
+    display: flex;
+    flex-direction: column;
+}
+
+.test-3-1 > button {
+    /* Positioning */
+    align-self: center;
+    display: inline;
+}
+
+/* ######## */
+/* TEST 3-2 */
+/* ######## */
+
+.test-3-2 > p,
+.test-3-2 > button {
+    display: inline;
 }

@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    const paragraphEl = $('.fusion');
+    const paragraphEl = $('.test-2');
     const textEl = paragraphEl.find('p');
     const toggleEl = paragraphEl.find('button');
 
