@@ -38,7 +38,3 @@
 .paragraph>button:hover {
     color: hwb(0 40% 60%);
 }
-
-.hide > button {
-    display: none;
-}

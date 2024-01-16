@@ -4,104 +4,100 @@ $(document).ready(() => {
         const textEl = paragraphEl.find('p');
         const buttonEl = paragraphEl.find('button');
 
-        const displayButton = () => {
-            // Stores class state
-            const storeClass = paragraphEl.hasClass('minimized');
-            const storeHeight = textEl.css('height');
+        let currentClass = undefined;
+        minHeight = undefined;
+        maxHeight = undefined;
+
+        const resets = () => {
+            // Resets height
             textEl.css('height', '');
 
-            // Removes class
-            if (storeClass) {
+            // Stores current state
+            currentClass = paragraphEl.hasClass('minimized');
+
+            // Removes class if it exists
+            if (currentClass) {
                 paragraphEl.removeClass('minimized');
             }
+        };
 
+        const restores = () => {
+            // Restores class if it existed
+            if (currentClass) {
+                paragraphEl.addClass('minimized');
+            }
+        };
+
+        const displayButton = () => {
             // Counts number of lines
             let textHeight = textEl.height();
             let lineHeight = parseInt(textEl.css('line-height'));
             let numberOfLines = textHeight / lineHeight;
 
-            // Restores class
-            if (storeClass) {
-                paragraphEl.addClass('minimized');
-                textEl.css('height', storeHeight);
-            }
-
-            // If more than 3, return true
             return numberOfLines > 3 ? true : false;
         };
 
-        const getMinMax = () => {
-            // Stores class state
-            const storeClass = paragraphEl.hasClass('minimized');
-            const storeHeight = textEl.css('height');
-            textEl.css('height', '');
-
-            // Removes class
-            if (storeClass) {
-                paragraphEl.removeClass('minimized');
-            }
-
-            // Stores class state
-            const textHeight = textEl.height();
-            const lineHeight = parseInt(textEl.css('line-height'));
+        const getHeight = () => {
+            let textHeight = textEl.height();
+            let lineHeight = parseInt(textEl.css('line-height'));
 
             // Calculates min and max height
-            const min = lineHeight * 3;
-            const max = textHeight;
+            minHeight = lineHeight * 3;
+            maxHeight = textHeight;
 
-            // Restores class
-            if (storeClass) {
-                paragraphEl.addClass('minimized');
-                textEl.css('height', storeHeight);
-            }
-
-            // Returns min and max height
-            return { 'min': min, 'max': max };
+            console.log('Min :', minHeight);
+            console.log('Max :', maxHeight);
         };
 
-        const setHeight = (textHeight) => {
+        const setHeight = () => {
             if (paragraphEl.hasClass('minimized')) {
-                textEl.css('height', textHeight.min);
+                textEl.css('height', minHeight);
+            } else {
+                textEl.css('height', maxHeight);
+            }
+        };
+
+        const setButtonName = () => {
+            if (paragraphEl.hasClass('minimized')) {
                 buttonEl.text('Voir plus');
             } else {
-                textEl.css('height', textHeight.max);
                 buttonEl.text('Voir moins');
             }
         };
 
-        // On load
-        if (displayButton()) {
-            // Show button
-            paragraphEl.removeClass('hide');
 
-            // Sets height
-            setHeight(getMinMax());
+        // On load
+        resets();
+        getHeight();
+        restores();
+        setHeight();
+        setButtonName();
+        if (displayButton()) {
+            buttonEl.show();
         } else {
-            // Hide button
-            paragraphEl.addClass('hide');
+            buttonEl.hide();
         }
 
         // On resize
         $(window).on('resize', () => {
+            resets();
+            getHeight();
+            restores();
+            setHeight();
+            setButtonName();
             if (displayButton()) {
-                // Show button
-                paragraphEl.removeClass('hide');
-
-                // Sets height
-                setHeight(getMinMax());
+                buttonEl.show();
             } else {
-                // Hide button
-                paragraphEl.addClass('hide');
+                buttonEl.hide();
             }
         });
 
         // On click
         buttonEl.on('click', () => {
-            // Toggles class
             paragraphEl.toggleClass('minimized');
 
-            // Sets height
-            setHeight(getMinMax());
+            setHeight();
+            setButtonName();
         });
     });
 });
