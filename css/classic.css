@@ -1,7 +1,7 @@
 /* Section */
 .paragraph {
     height: fit-content;
-
+    
     margin: 0.5rem;
     padding: 1rem;
     
@@ -10,61 +10,31 @@
 }
 
 /* Text */
-.paragraph>.text {
-    text-align: justify;
+.paragraph>p {
     overflow: hidden;
+    text-align: justify;
     line-height: 20px;
     transition: 200ms;
 }
 
-.minimized>.text {
+.minimized>p {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
 }
 
 /* Button */
-.paragraph>.button {
+.paragraph>button {
     padding-top: 0.5rem;
-    text-align: center;
+    width: 100%;
+
     cursor: pointer;
-    /* width: fit-content; */
-}
+    border: none;
 
-/* See more */
-.paragraph>.see-more {
-    display: none;
     font-weight: 500;
     color: hwb(0 70% 30%);
 }
 
-.paragraph>.see-more:hover {
+.paragraph>button:hover {
     color: hwb(0 40% 60%);
-}
-
-.minimized>.see-more {
-    display: block;
-}
-
-.visible>.see-more {
-    display: none;
-}
-
-/* See less */
-.paragraph>.see-less {
-    display: block;
-    font-weight: 500;
-    color: hwb(0 70% 30%);
-}
-
-.paragraph>.see-less:hover {
-    color: hwb(0 40% 60%);
-}
-
-.minimized>.see-less {
-    display: none;
-}
-
-.visible>.see-less {
-    display: none;
 }

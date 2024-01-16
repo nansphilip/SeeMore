@@ -2,25 +2,31 @@
 .fusion {
     height: fit-content;
     overflow: hidden;
-    
+
     margin: 0.5rem;
     padding: 1rem;
-    
+
     background-color: hsl(0, 0%, 95%);
     border-radius: 0.5rem;
 
     text-align: justify;
     line-height: 20px;
-
+    
     transition: 200ms;
 }
 
-.fusion > .toggle {
+.fusion > p {
+    display: inline;
+}
+
+.fusion>button {
+    display: inline;
+    border: none;
     font-weight: 500;
     color: hwb(0 70% 30%);
 }
 
-.fusion > .toggle:hover {
+.fusion>button:hover {
     color: hwb(0 40% 60%);
     cursor: pointer;
 }

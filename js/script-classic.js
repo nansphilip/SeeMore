@@ -1,82 +1,107 @@
 $(document).ready(() => {
-    $('.paragraph').each(function() {
-        let $paragraphEl = $(this);
-        let $textEl = $paragraphEl.find('.text');
-        let $buttonElList = $paragraphEl.find('.button');
-        let $textMaxHeight, $textMinHeight = undefined;
-        let $minimizeSate = true;
+    $('.paragraph').each(function () {
+        const paragraphEl = $(this);
+        const textEl = paragraphEl.find('p');
+        const buttonEl = paragraphEl.find('button');
 
-        let IsVisible = () => {
+        const displayButton = () => {
+            // Stores class state
+            const storeClass = paragraphEl.hasClass('minimized');
+            const storeHeight = textEl.css('height');
+            textEl.css('height', '');
 
-            // Store minimized state if all text isn't visible
-            if (!$paragraphEl.hasClass('visible')) {
-                $minimizeSate = $paragraphEl.hasClass('minimized');
+            // Removes class
+            if (storeClass) {
+                paragraphEl.removeClass('minimized');
             }
 
-            // Reset
-            $textEl.css('height', '');
-            $paragraphEl.removeClass('visible');
-            $paragraphEl.removeClass('minimized');
+            // Counts number of lines
+            let textHeight = textEl.height();
+            let lineHeight = parseInt(textEl.css('line-height'));
+            let numberOfLines = textHeight / lineHeight;
 
-            // Mesure number of lines
-            let $paragraphHeight = $textEl.height();
-            let $lineHeight = parseInt($textEl.css('line-height'));
-            let $numberOfLines = $paragraphHeight / $lineHeight;
+            // Restores class
+            if (storeClass) {
+                paragraphEl.addClass('minimized');
+                textEl.css('height', storeHeight);
+            }
 
-            // Set class
-            if ($numberOfLines <= 3) {
-                $paragraphEl.addClass('visible');
-                return true;
+            // If more than 3, return true
+            return numberOfLines > 3 ? true : false;
+        };
+
+        const getMinMax = () => {
+            // Stores class state
+            const storeClass = paragraphEl.hasClass('minimized');
+            const storeHeight = textEl.css('height');
+            textEl.css('height', '');
+
+            // Removes class
+            if (storeClass) {
+                paragraphEl.removeClass('minimized');
+            }
+
+            // Stores class state
+            const textHeight = textEl.height();
+            const lineHeight = parseInt(textEl.css('line-height'));
+
+            // Calculates min and max height
+            const min = lineHeight * 3;
+            const max = textHeight;
+
+            // Restores class
+            if (storeClass) {
+                paragraphEl.addClass('minimized');
+                textEl.css('height', storeHeight);
+            }
+
+            // Returns min and max height
+            return { 'min': min, 'max': max };
+        };
+
+        const setHeight = (textHeight) => {
+            if (paragraphEl.hasClass('minimized')) {
+                textEl.css('height', textHeight.min);
+                buttonEl.text('Voir plus');
             } else {
-                if ($minimizeSate) {
-                    $paragraphEl.addClass('minimized');
-                }
-                return false;
+                textEl.css('height', textHeight.max);
+                buttonEl.text('Voir moins');
             }
         };
-
-        let MesureHeights = () => {
-            if ($paragraphEl.hasClass('minimized')) {
-                $textMinHeight = $textEl.css('height');
-                $paragraphEl.toggleClass('minimized');
-                $textMaxHeight = $textEl.css('height');
-            }
-            else {
-                $textMaxHeight = $textEl.css('height');
-                $paragraphEl.toggleClass('minimized');
-                $textMinHeight = $textEl.css('height');
-            }
-        };
-
-        let ToggleParagraph = () => {
-            $paragraphEl.toggleClass('minimized');
-
-            if ($paragraphEl.hasClass('minimized')) {
-                $textEl.css('height', $textMinHeight);
-            }
-            else {
-                $textEl.css('height', $textMaxHeight);
-            }
-        };
-
 
         // On load
-        if (!IsVisible()) {
-            MesureHeights();
-            ToggleParagraph();
+        if (displayButton()) {
+            // Show button
+            buttonEl.show();
+
+            // Sets height
+            setHeight(getMinMax());
+        } else {
+            // Hide button
+            buttonEl.hide();
         }
 
         // On resize
-        $(window).resize(() => {
-            if (!IsVisible()) {
-                MesureHeights();
-                ToggleParagraph();
+        $(window).on('resize', () => {
+            if (displayButton()) {
+                // Show button
+                buttonEl.show();
+
+                // Sets height
+                setHeight(getMinMax());
+            } else {
+                // Hide button
+                buttonEl.hide();
             }
         });
 
         // On click
-        $buttonElList.on('click', () => {
-            ToggleParagraph();
+        buttonEl.on('click', () => {
+            // Toggles class
+            paragraphEl.toggleClass('minimized');
+
+            // Sets height
+            setHeight(getMinMax());
         });
     });
 });
