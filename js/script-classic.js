@@ -94,7 +94,6 @@ $(document).ready(() => {
         $(window).on('resize', () => {
             clearTimeout(timeout);
             timeout = setTimeout(() => {
-                console.log('Resize');
                 getHeight();
                 setHeight();
                 setButtonName();
