@@ -1,113 +1,67 @@
 $(document).ready(() => {
-    $('.test-1').each(function () {
+    $('.classic').each(function () {
+        // Initialize elements variables
         const paragraphEl = $(this);
         const textEl = paragraphEl.find('p');
         const buttonEl = paragraphEl.find('button');
 
-        let currentClass = undefined;
-        let currentHeight = undefined;
-        minHeight = undefined;
-        maxHeight = undefined;
+        // Initialize heights variables
+        const lineHeight = parseInt(textEl.css('line-height'));
+        const min = lineHeight * 3;
+        let max = undefined;
 
-        const resets = () => {
-            // Stores current height
-            currentHeight = textEl.height();
-
-            // Resets height
-            textEl.css('height', '');
-
-            // Stores current state
-            currentClass = paragraphEl.hasClass('minimized');
-
-            // Removes class if it exists
-            if (currentClass) {
-                paragraphEl.removeClass('minimized');
-            }
-        };
-
-        const restores = () => {
-            // Restores height
-            textEl.css('height', currentHeight);
-
-            // Restores class if it existed
-            if (currentClass) {
-                paragraphEl.addClass('minimized');
-            }
-        };
-
-        const displayButton = () => {
-            resets();
-
-            // Counts number of lines
-            let textHeight = textEl.height();
-            let lineHeight = parseInt(textEl.css('line-height'));
-            let numberOfLines = textHeight / lineHeight;
-
-            // Displays button if the text is greater than 3 lines
-            if (numberOfLines > 3) {
-                buttonEl.show();
-            } else {
-                buttonEl.hide();
-            }
-
-            restores();
-        };
 
         const getHeight = () => {
-            resets();
+            let hasMinimizedClass = paragraphEl.hasClass('minimized');
+            if (hasMinimizedClass) paragraphEl.removeClass('minimized');
 
-            // Calculates min and max height
-            let textHeight = textEl.height();
-            let lineHeight = parseInt(textEl.css('line-height'));
-            minHeight = lineHeight * 3;
-            maxHeight = textHeight;
+            textEl.height('auto');
+            max = textEl.height();
 
-            restores();
+            if (hasMinimizedClass) paragraphEl.addClass('minimized');
         };
 
         const setHeight = () => {
-            if (paragraphEl.hasClass('minimized')) {
-                textEl.css('height', minHeight);
-            } else {
-                textEl.css('height', maxHeight);
-            }
+            const hasMinimized = paragraphEl.hasClass('minimized');
+            if (hasMinimized) textEl.height(min);
+            else textEl.height(max);
         };
 
-        // Sets button name
-        const setButtonName = () => {
-            if (paragraphEl.hasClass('minimized')) {
-                buttonEl.text('Voir plus');
-            } else {
-                buttonEl.text('Voir moins');
-            }
+        const setTitle = () => {
+            const hasMinimized = paragraphEl.hasClass('minimized');
+            if (hasMinimized) buttonEl.text('Voir plus');
+            else buttonEl.text('Voir moins');
+        };
+
+        const display = () => {
+            const numberOfLines = max / lineHeight;
+            if (numberOfLines > 3) buttonEl.show();
+            else buttonEl.hide();
+        };
+
+        const toggle = () => {
+            paragraphEl.toggleClass('minimized');
         };
 
 
         // On load
         getHeight();
         setHeight();
-        setButtonName();
-        displayButton();
+        setTitle();
+        display();
 
         // On resize
-        let timeout;
         $(window).on('resize', () => {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => {
-                getHeight();
-                setHeight();
-                setButtonName();
-                displayButton();
-            }, 100);
+            getHeight();
+            setHeight();
+            display();
         });
 
         // On click
         buttonEl.on('click', () => {
-            // Toggles class
-            paragraphEl.toggleClass('minimized');
-
+            toggle();
             setHeight();
-            setButtonName();
+            setTitle();
         });
     });
 });

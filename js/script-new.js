@@ -1,17 +1,13 @@
-/**
- * @file 3rd test
- */
-
 // Animates the height transition of the paragraphs.
 const animate = true;
 
 window.addEventListener("load", () => {
 
     // For all the `see-more` elements in the DOM.
-    for (const containerEl of document.querySelectorAll(".js-see-more")) {
+    for (const containerEl of document.querySelectorAll(".new")) {
 
         const paragraphEl = containerEl.querySelector("p"),
-              btnEl = containerEl.querySelector(".js-see-more-btn");
+            btnEl = containerEl.querySelector(".button");
 
         // Inits paragraph's style and its container.
         containerEl.classList.add("minimized");
@@ -25,7 +21,7 @@ window.addEventListener("load", () => {
 
         // Optional animation code.
         if (animate) paragraphEl.style.height = `${minHeight}px`;
-    
+
         btnEl.addEventListener("click", (e) => {
 
             if (containerEl.classList.contains("minimized")) {
@@ -41,5 +37,5 @@ window.addEventListener("load", () => {
             }
         });
     }
-    
+
 });

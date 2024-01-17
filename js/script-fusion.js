@@ -1,72 +1,97 @@
 $(document).ready(() => {
-    const paragraphEl = $('.test-2');
-    const textEl = paragraphEl.find('p');
-    const toggleEl = paragraphEl.find('button');
+    $('.fusion').each(function () {
+        // Initialize elements variables
+        const paragraphEl = $(this);
+        const textEl = paragraphEl.find('p');
+        const buttonEl = paragraphEl.find('button');
 
-    let paragraphMinHeight, paragraphMaxHeight, cutText = undefined;
+        // Initialize heights variables
+        const lineHeight = parseInt(textEl.css('line-height'));
+        const min = lineHeight * 3;
+        let max = undefined;
 
-    // Store original text
-    const originalText = textEl.text().trim() + ' ';
+        // Initialize texts variables
+        const originalText = textEl.text().trim();
+        let shortText = undefined;
 
-    const isVisible = () => {
 
-    };
+        const getHeight = () => {
+            let hasMinimizedClass = paragraphEl.hasClass('minimized');
+            if (hasMinimizedClass) textEl.text(originalText);
 
-    const mesureHeights = () => {
-        // Reset
-        textEl.text(originalText);
-        paragraphEl.css('height', '');
-        toggleEl.text('Voir plus');
+            max = textEl.height();
 
-        // Count number of lines
-        let textHeight = textEl.height();
-        let lineHeight = parseInt(textEl.css('line-height'));
-        let numberOfLines = Math.round(textHeight / lineHeight);
+            if (hasMinimizedClass) textEl.text(shortText);
+        };
 
-        // Calculer les hauteurs minimale et maximale
-        paragraphMinHeight = (lineHeight * 3 + 32) + 'px';
-        paragraphMaxHeight = (textHeight + 32) + 'px';
+        const getShortText = () => {
+            // Counts lines
+            const linesNumber = max / lineHeight;
+            // Counts words
+            const splitParagraph = originalText.split(' ');
+            const wordsNumber = splitParagraph.length;
+            // Counts words per line
+            const wordsPerLine = wordsNumber / linesNumber;
+            // Creates short text
+            const shortTextSize = wordsPerLine * 2.7;
+            shortText = splitParagraph.slice(0, shortTextSize).join(' ').trim() + '... ';
+        };
 
-        // Count words
-        let splitParagraph = originalText.split(' ');
-        let wordsNumber = splitParagraph.length;
-        let wordsPerLine = Math.floor(wordsNumber / numberOfLines);
+        const toggleClass = () => {
+            paragraphEl.toggleClass('minimized');
+        };
 
-        // Store cut text
-        let limitNumberOfWords = Math.round(wordsPerLine * 2.5);
-        cutText = splitParagraph.slice(0, limitNumberOfWords).join(' ').trim() + '... ';
-    };
+        const setHeight = () => {
+            const hasMinimized = paragraphEl.hasClass('minimized');
+            if (hasMinimized) paragraphEl.height(min);
+            else paragraphEl.height(max);
+        };
 
-    const toggle = () => {
-        if (paragraphEl.hasClass('minimized')) {
-            paragraphEl.css('height', paragraphMinHeight);
-            textEl.text(cutText);
-            toggleEl.text('Voir plus');
-        }
-        else {
-            paragraphEl.css('height', paragraphMaxHeight);
-            textEl.text(originalText);
-            toggleEl.text('Voir moins');
-        }
-    };
+        const setText = () => {
+            const hasMinimized = paragraphEl.hasClass('minimized');
+            if (hasMinimized) textEl.text(shortText);
+            else textEl.text(originalText);
+        };
 
-    // On load
-    if (!isVisible()) {
-        mesureHeights();
-        toggle();
-    }
+        const setTitle = () => {
+            const hasMinimized = paragraphEl.hasClass('minimized');
+            if (hasMinimized) buttonEl.text('Voir plus');
+            else buttonEl.text('Voir moins');
+        };
 
-    // On resize
-    $(window).on('resize', () => {
-        if (!isVisible()) {
-            mesureHeights();
-            toggle();
-        }
-    });
+        const display = () => {
+            const numberOfLines = max / lineHeight;
+            if (numberOfLines > 3) buttonEl.show();
+            else {
+                buttonEl.hide();
+                textEl.text(originalText);
+            }
+        };
 
-    // On click
-    toggleEl.on('click', () => {
-        paragraphEl.toggleClass('minimized');
-        toggle();
+
+        // On load
+        getHeight();
+        getShortText();
+        setHeight();
+        setText();
+        setTitle();
+        display();
+
+        // On resize
+        $(window).on('resize', () => {
+            getHeight();
+            getShortText();
+            setHeight();
+            setText();
+            display();
+        });
+
+        // On click
+        buttonEl.on('click', () => {
+            toggleClass();
+            setHeight();
+            setText();
+            setTitle();
+        });
     });
 });

@@ -1,0 +1,30 @@
+/* FUSION */
+.fusion {
+    background-color: hsl(0, 0%, 95%);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    
+    text-align: justify;
+    overflow: hidden;
+    transition: 200ms;
+}
+
+/* TEXT */
+.fusion > p {
+    display: inline;
+    line-height: 20px;
+}
+
+/* BUTTON */
+.fusion > button {
+    display: inline;
+    border: none;
+    cursor: pointer;
+    
+    font-weight: 500;
+    color: hsl(0, 0%, 60%);
+}
+
+.fusion > button:hover {
+    color: hsl(0, 0%, 40%);
+}

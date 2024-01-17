@@ -1,0 +1,36 @@
+/* CLASSIC */
+.classic {
+    background-color: hsl(0, 0%, 95%);
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+/* TEXT */
+.classic>p {
+    overflow: hidden;
+    text-align: justify;
+    line-height: 20px;
+    transition: 200ms;
+}
+
+.classic.minimized>p {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}
+
+/* BUTTON */
+.classic>button {
+    width: 100%;
+    padding-top: 0.5rem;
+
+    border: none;
+    cursor: pointer;
+
+    font-weight: 500;
+    color: hsl(0, 0%, 60%);
+}
+
+.classic>button:hover {
+    color: hsl(0, 0%, 40%);
+}
